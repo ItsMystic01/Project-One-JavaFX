@@ -33,11 +33,11 @@ public class CardViewController implements Initializable {
     @FXML
     public ScrollPane scrollPane;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         ToDoManager toDoManager = new ToDoManager();
+
 
         ArrayList<ToDo> todoList;
         try {
@@ -50,7 +50,18 @@ public class CardViewController implements Initializable {
         tilePane.setVgap(10);
 
         for (ToDo item : todoList) {
-            VBox card = createCard(item);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("card_template.fxml"));
+            VBox card;
+
+            try {
+                card = loader.load();
+
+                CardTemplate cardTemplate = loader.getController();
+                cardTemplate.initialize(item);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
             card.setOnMouseClicked(mouseEvent -> { onSelectPane(item); });
             tilePane.getChildren().add(card);
         }
@@ -61,20 +72,6 @@ public class CardViewController implements Initializable {
 
     public void onSelectPane(ToDo clickedTodo) {
         System.out.println("Yow, card " + clickedTodo.getTitle() + " was clicked");
-    }
-
-    public VBox createCard(ToDo item) {
-        // Create a VBox card
-        VBox card = new VBox();
-        card.setStyle("-fx-background-color: white; -fx-padding: 10px; -fx-border-width: 1px; -fx-border-color: gray;");
-
-        // Add elements to the card
-        Label titleLabel = new Label(item.getTitle());
-        Label descriptionLabel = new Label(item.getCategory());
-
-        card.getChildren().addAll(titleLabel, descriptionLabel);
-
-        return card;
     }
 
 

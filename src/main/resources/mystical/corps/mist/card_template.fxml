@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="main_box" fx:id="main_box" stylesheets="@css/card_template.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.corps.mist.CardTemplate">
+   <AnchorPane prefHeight="29.0" prefWidth="155.0">
+      <Label fx:id="box_title" alignment="CENTER" prefHeight="26.0" prefWidth="155.0" text="Title" />
+   </AnchorPane>
+   <AnchorPane prefHeight="23.0" prefWidth="155.0">
+      <Label fx:id="box_starting_date" alignment="CENTER" prefHeight="25.0" prefWidth="73.0" text="Starting Date" />
+      <Label fx:id="box_ending_date" alignment="CENTER" layoutX="78.0" prefHeight="25.0" prefWidth="73.0" text="Ending Date" />
+   </AnchorPane>
+   <AnchorPane prefHeight="47.0" prefWidth="155.0">
+      <Label fx:id="box_priority" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="73.0" text="Priority" />
+      <Label fx:id="box_category" alignment="CENTER" layoutX="78.0" layoutY="2.0" prefHeight="25.0" prefWidth="73.0" text="Category" />
+   </AnchorPane>
+   <AnchorPane prefHeight="11.0" prefWidth="155.0">
+      <Button id="button" layoutX="11.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Edit" />
+      <Button id="button" layoutX="91.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Delete" />
+   </AnchorPane>
+</VBox>
