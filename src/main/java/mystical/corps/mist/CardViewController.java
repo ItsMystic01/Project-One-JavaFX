@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -37,8 +38,6 @@ public class CardViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         ToDoManager toDoManager = new ToDoManager();
-
-
         ArrayList<ToDo> todoList;
         try {
             todoList = toDoManager.getAllToDos();
@@ -62,7 +61,13 @@ public class CardViewController implements Initializable {
                 throw new RuntimeException(e);
             }
 
-            card.setOnMouseClicked(mouseEvent -> { onSelectPane(item); });
+            card.setOnMouseClicked(mouseEvent -> {
+                try {
+                    onSelectPane(item, mouseEvent);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             tilePane.getChildren().add(card);
         }
 
@@ -70,9 +75,16 @@ public class CardViewController implements Initializable {
         scrollPane.setPadding(insets);
     }
 
-    public void onSelectPane(ToDo clickedTodo) {
-        System.out.println("Yow, card " + clickedTodo.getTitle() + " was clicked");
-    }
+    public void onSelectPane(ToDo clickedTodo, MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view_item.fxml"));
+        Parent root = loader.load();
 
+        ViewItem viewItem = loader.getController();
+        viewItem.loadDataFromMain(clickedTodo);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 
 }

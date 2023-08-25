@@ -5,3 +5,7 @@
 .sidebar {
     -fx-background-color: #5C5C62;
 }
+
+.scrollpane {
+    -fx-padding: 5;
+}

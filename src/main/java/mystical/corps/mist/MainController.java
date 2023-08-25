@@ -3,18 +3,18 @@ package mystical.corps.mist;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mystical.corps.mist.ToDo.ToDo;
 import mystical.corps.mist.ToDo.ToDoManager;
@@ -28,16 +28,21 @@ import java.util.Objects;
 
 public class MainController {
 
+    @FXML
     public TextField search_bar;
     @FXML
-    private Button filter, plus, gear;
+    public ScrollPane scrollPane;
+    public TilePane tilePane;
+    @FXML
+    private Button view_mode, filter, plus, gear;
     @FXML
     private ContextMenu contextMenu;
-
-    private final ToDoManager TODO_MANAGER = new ToDoManager();
-
     @FXML
     private ListView<String> todolist;
+
+    private boolean view_status;
+    private final ToDoManager TODO_MANAGER = new ToDoManager();
+
 
     public void addItem(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("add_item.fxml"));
@@ -50,15 +55,21 @@ public class MainController {
 
     public void gearItem(ActionEvent event) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("card_view.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
+//        Parent root = FXMLLoader.load(getClass().getResource("card_view.fxml"));
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root);
+//
+//        stage.setScene(scene);
+//        stage.show();
     }
 
     public void initialize() throws SQLException {
+
+        Image view = new Image("view.png");
+        ImageView viewMode = new ImageView(view);
+        viewMode.setFitWidth(32);
+        viewMode.setFitHeight(32);
+        view_mode.setGraphic(viewMode);
 
         Image menu = new Image("menu.png");
         ImageView menuView = new ImageView(menu);
@@ -80,6 +91,39 @@ public class MainController {
 
         if(TODO_MANAGER.isDBClosed()) { return; }
 
+        view_status = true;
+        changeView();
+    }
+
+    public void changeView() throws SQLException {
+        tilePane.getChildren().clear();
+        todolist.getItems().clear();
+        if(view_status) {
+            scrollPane.setVisible(true);
+            todolist.setVisible(false);
+            mainView();
+            view_status = false;
+            return;
+        }
+        scrollPane.setVisible(false);
+        todolist.setVisible(true);
+        secondView();
+        view_status = true;
+    }
+
+    public void onSelectPane(ToDo clickedTodo, MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view_item.fxml"));
+        Parent root = loader.load();
+
+        ViewItem viewItem = loader.getController();
+        viewItem.loadDataFromMain(clickedTodo);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    public void secondView() throws SQLException {
         ArrayList<String> todoListTitles = new ArrayList<>();
 
         ArrayList<ToDo> todoList = TODO_MANAGER.getAllToDos();
@@ -101,6 +145,42 @@ public class MainController {
                 }
             }
         });
+    }
+
+    public void mainView() {
+        ArrayList<ToDo> todoList;
+        try {
+            todoList = TODO_MANAGER.getAllToDos();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        tilePane.setHgap(10);
+        tilePane.setVgap(10);
+
+        for (ToDo item : todoList) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("card_template.fxml"));
+            VBox card;
+
+            try {
+                card = loader.load();
+
+                CardTemplate cardTemplate = loader.getController();
+                cardTemplate.initialize(item);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            card.setOnMouseClicked(mouseEvent -> {
+                try {
+                    onSelectPane(item, mouseEvent);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            tilePane.getChildren().add(card);
+        }
+
     }
 
     public void searchBar() {
@@ -137,6 +217,7 @@ public class MainController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
 
     public void filterItems() {
         contextMenu.show(filter, Side.BOTTOM, 0, 0);
