@@ -3,7 +3,6 @@ package mystical.corps.mist;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -21,10 +20,7 @@ import mystical.corps.mist.ToDo.ToDoManager;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class MainController {
 
@@ -42,93 +38,39 @@ public class MainController {
 
     private boolean view_status;
     private final ToDoManager TODO_MANAGER = new ToDoManager();
-
-
-    public void addItem(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("add_item.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void gearItem(ActionEvent event) throws IOException {
-
-//        Parent root = FXMLLoader.load(getClass().getResource("card_view.fxml"));
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        Scene scene = new Scene(root);
-//
-//        stage.setScene(scene);
-//        stage.show();
-    }
+    private List<ToDo> todoListUpdated;
+    private String mode_filter = "name";
 
     public void initialize() throws SQLException {
 
-        Image view = new Image("view.png");
-        ImageView viewMode = new ImageView(view);
-        viewMode.setFitWidth(32);
-        viewMode.setFitHeight(32);
-        view_mode.setGraphic(viewMode);
-
-        Image menu = new Image("menu.png");
-        ImageView menuView = new ImageView(menu);
-        menuView.setFitWidth(32);
-        menuView.setFitHeight(32);
-        filter.setGraphic(menuView);
-
-        Image plusImage = new Image("plus.png");
-        ImageView plusView = new ImageView(plusImage);
-        plusView.setFitWidth(32);
-        plusView.setFitHeight(32);
-        plus.setGraphic(plusView);
-
-        Image gearImage = new Image("gear.png");
-        ImageView gearView = new ImageView(gearImage);
-        gearView.setFitWidth(32);
-        gearView.setFitHeight(32);
-        gear.setGraphic(gearView);
+        loadImage(view_mode, filter, plus, gear);
 
         if(TODO_MANAGER.isDBClosed()) { return; }
 
-        view_status = true;
-        changeView();
+        view_status = false;
+        todoListUpdated = TODO_MANAGER.getAllToDos();
+        changeViewMode();
     }
 
-    public void changeView() throws SQLException {
-        tilePane.getChildren().clear();
-        todolist.getItems().clear();
-        if(view_status) {
+    public void changeViewMode() {
+        if(!view_status) {
             scrollPane.setVisible(true);
             todolist.setVisible(false);
-            mainView();
-            view_status = false;
+            tileView();
+            view_status = true;
             return;
         }
         scrollPane.setVisible(false);
         todolist.setVisible(true);
-        secondView();
-        view_status = true;
+        listView();
+        view_status = false;
     }
 
-    public void onSelectPane(ToDo clickedTodo, MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("view_item.fxml"));
-        Parent root = loader.load();
-
-        ViewItem viewItem = loader.getController();
-        viewItem.loadDataFromMain(clickedTodo);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
-
-    public void secondView() throws SQLException {
+    public void listView() {
+        todolist.getItems().clear();
         ArrayList<String> todoListTitles = new ArrayList<>();
 
-        ArrayList<ToDo> todoList = TODO_MANAGER.getAllToDos();
-
-        for(ToDo todo : todoList) {
+        for(ToDo todo : todoListUpdated) {
             todoListTitles.add(todo.getTitle());
         }
 
@@ -147,18 +89,12 @@ public class MainController {
         });
     }
 
-    public void mainView() {
-        ArrayList<ToDo> todoList;
-        try {
-            todoList = TODO_MANAGER.getAllToDos();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+    public void tileView() {
+        tilePane.getChildren().clear();
         tilePane.setHgap(10);
         tilePane.setVgap(10);
 
-        for (ToDo item : todoList) {
+        for (ToDo item : todoListUpdated) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("card_template.fxml"));
             VBox card;
 
@@ -173,7 +109,7 @@ public class MainController {
 
             card.setOnMouseClicked(mouseEvent -> {
                 try {
-                    onSelectPane(item, mouseEvent);
+                    viewItem(item, mouseEvent);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -183,28 +119,38 @@ public class MainController {
 
     }
 
+    public void filterItem(ActionEvent event) throws SQLException {
+        MenuItem clickedItem = (MenuItem) event.getTarget();
+        mode_filter = clickedItem.getId();
+        getSortedByRequirement();
+    }
+
+    public void getSortedByRequirement() throws SQLException {
+        List<ToDo> sortedByRequirement = TODO_MANAGER.getAllToDos().stream().sorted(ToDoManager.getComparator(mode_filter))
+                .filter(todo -> todo.getTitle().contains(search_bar.getText())).toList();
+        if(!view_status) {
+            List<String> strings = sortedByRequirement.stream().map(ToDo::getTitle).toList();
+            todolist.getItems().clear();
+            todolist.getItems().addAll(strings);
+            todoListUpdated = sortedByRequirement;
+            return;
+        }
+
+        todoListUpdated = sortedByRequirement;
+        tileView();
+    }
+
     public void searchBar() {
         search_bar.setOnKeyTyped(keyEvent -> {
             try {
-                todolist.getItems().removeAll(TODO_MANAGER.getAllToDos().stream().toList().stream().map(ToDo::getTitle).toList());
+                getSortedByRequirement();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
-            String searchedText = search_bar.getText();
-            List<ToDo> sortedByTitle;
-            try {
-                sortedByTitle = TODO_MANAGER.getAllToDos().stream().sorted(Comparator.comparing(ToDo::getTitle)).toList();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            List<String> strings = new ArrayList<>(sortedByTitle.stream().map(ToDo::getTitle).toList());
-
-            strings.removeIf(item -> !item.contains(searchedText));
-
-            todolist.getItems().addAll(strings);
         });
     }
+
+    public void showFilterOptions() { contextMenu.show(filter, Side.BOTTOM, 0, 0); }
 
     private void viewItem(ToDo toDo, MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("view_item.fxml"));
@@ -218,85 +164,26 @@ public class MainController {
         stage.show();
     }
 
-
-    public void filterItems() {
-        contextMenu.show(filter, Side.BOTTOM, 0, 0);
-    }
-
-    public void byName() throws SQLException {
-        if(search_bar.getLength() == 0) {
-            List<ToDo> sortedByTitle = TODO_MANAGER.getAllToDos().stream().sorted(Comparator.comparing(ToDo::getTitle)).toList();
-            List<String> strings = sortedByTitle.stream().map(ToDo::getTitle).toList();
-
-            todolist.getItems().removeAll(strings);
-            todolist.getItems().addAll(strings);
-        } else {
-            List<ToDo> sortedByTitle = TODO_MANAGER.getAllToDos().stream().sorted(Comparator.comparing(ToDo::getTitle)).toList();
-            List<String> strings = new ArrayList<>(sortedByTitle.stream().map(ToDo::getTitle).toList());
-
-            todolist.getItems().removeAll(strings);
-
-            strings.removeIf(item -> !item.contains(search_bar.getText()));
-
-            todolist.getItems().addAll(strings);
+    public void loadImage(Button... buttons) {
+        for(Button button : buttons) {
+            Image buttonImg = new Image(button.getId() + ".png");
+            ImageView buttonImgView = new ImageView(buttonImg);
+            buttonImgView.setFitWidth(32);
+            buttonImgView.setFitHeight(32);
+            button.setGraphic(buttonImgView);
         }
     }
 
-    public void byDate() throws SQLException {
-        if(search_bar.getLength() == 0) {
-            List<ToDo> sortedByDate = TODO_MANAGER.getAllToDos().stream().sorted(Comparator.comparing(ToDo::getStartDate)).toList();
-            List<String> strings = sortedByDate.stream().map(ToDo::getTitle).toList();
+    public void addItem(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add_item.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            todolist.getItems().removeAll(strings);
-            todolist.getItems().addAll(strings);
-        } else {
-            List<ToDo> sortedByDate = TODO_MANAGER.getAllToDos().stream().sorted(Comparator.comparing(ToDo::getStartDate)).toList();
-            List<String> strings = new ArrayList<>(sortedByDate.stream().map(ToDo::getTitle).toList());
-
-            todolist.getItems().removeAll(strings);
-
-            strings.removeIf(item -> !item.contains(search_bar.getText()));
-
-            todolist.getItems().addAll(strings);
-        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    public void byPriority() throws SQLException {
-        if(search_bar.getLength() == 0) {
-            List<ToDo> sortedByPriority = TODO_MANAGER.getAllToDos().stream().sorted(Comparator.comparing(ToDo::getPriority)).toList();
-            List<String> strings = sortedByPriority.stream().map(ToDo::getTitle).toList();
-
-            todolist.getItems().removeAll(strings);
-            todolist.getItems().addAll(strings);
-        } else {
-            List<ToDo> sortedByPriority = TODO_MANAGER.getAllToDos().stream().sorted(Comparator.comparing(ToDo::getPriority)).toList();
-            List<String> strings = new ArrayList<>(sortedByPriority.stream().map(ToDo::getTitle).toList());
-
-            todolist.getItems().removeAll(strings);
-
-            strings.removeIf(item -> !item.contains(search_bar.getText()));
-
-            todolist.getItems().addAll(strings);
-        }
+    public void gearItem(ActionEvent event) {
     }
 
-    public void byCategory() throws SQLException {
-        if(search_bar.getLength() == 0) {
-            List<ToDo> sortedByCategory = TODO_MANAGER.getAllToDos().stream().sorted(Comparator.comparing(ToDo::getCategory)).toList();
-            List<String> strings = sortedByCategory.stream().map(ToDo::getTitle).toList();
-
-            todolist.getItems().removeAll(strings);
-            todolist.getItems().addAll(strings);
-        } else {
-
-            List<ToDo> sortedByCategory = TODO_MANAGER.getAllToDos().stream().sorted(Comparator.comparing(ToDo::getCategory)).toList();
-            List<String> strings = new ArrayList<>(sortedByCategory.stream().map(ToDo::getTitle).toList());
-
-            todolist.getItems().removeAll(strings);
-
-            strings.removeIf(item -> !item.contains(search_bar.getText()));
-
-            todolist.getItems().addAll(strings);
-        }
-    }
 }

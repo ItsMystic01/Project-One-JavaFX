@@ -18,6 +18,5 @@ public class CardTemplate {
         box_ending_date.setText(item.getEndDate());
         box_priority.setText(item.getPriority());
         box_category.setText(item.getCategory());
-
     }
 }

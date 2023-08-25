@@ -44,20 +44,20 @@
    <AnchorPane layoutX="170.0" layoutY="120.0" prefHeight="71.0" prefWidth="766.0">
       <Button fx:id="plus" layoutX="644.0" layoutY="10.0" mnemonicParsing="false" onAction="#addItem" prefHeight="51.0" prefWidth="53.0" />
       <Button fx:id="gear" layoutX="713.0" layoutY="10.0" mnemonicParsing="false" onAction="#gearItem" prefHeight="51.0" prefWidth="53.0" />
-      <Button fx:id="filter" layoutX="571.0" layoutY="10.0" mnemonicParsing="false" onAction="#filterItems" prefHeight="51.0" prefWidth="53.0">
+      <Button fx:id="filter" layoutX="571.0" layoutY="10.0" mnemonicParsing="false" onAction="#showFilterOptions" prefHeight="51.0" prefWidth="53.0">
          <contextMenu>
             <ContextMenu fx:id="contextMenu">
                <items>
-                  <MenuItem onAction="#byName" text="By Name" />
-                  <MenuItem onAction="#byDate" text="By Date" />
-                  <MenuItem onAction="#byPriority" text="By Priority" />
-                  <MenuItem onAction="#byCategory" text="By Category" />
+                  <MenuItem id="name" onAction="#filterItem" text="By Name" />
+                  <MenuItem id="date" onAction="#filterItem" text="By Date" />
+                  <MenuItem id="priority" onAction="#filterItem" text="By Priority" />
+                  <MenuItem id="category" onAction="#filterItem" text="By Category" />
                </items>
             </ContextMenu>
          </contextMenu>
       </Button>
       <TextField fx:id="search_bar" layoutX="-1.0" layoutY="10.0" onAction="#searchBar" prefHeight="51.0" prefWidth="485.0" />
-      <Button fx:id="view_mode" layoutX="497.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeView" prefHeight="51.0" prefWidth="53.0" />
+      <Button fx:id="view_mode" layoutX="497.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeViewMode" prefHeight="51.0" prefWidth="53.0" />
    </AnchorPane>
    <AnchorPane layoutX="170.0" layoutY="202.0" prefHeight="475.0" prefWidth="766.0">
       <ScrollPane id="scrollpane" fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="475.0" prefWidth="766.0" styleClass="scrollpane" stylesheets="@css/main.css">

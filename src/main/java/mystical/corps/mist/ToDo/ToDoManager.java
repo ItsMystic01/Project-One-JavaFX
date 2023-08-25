@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class ToDoManager {
@@ -45,6 +46,16 @@ public class ToDoManager {
 
     public boolean isDBClosed() {
         return SQLITE_MANAGER.isDBClosed();
+    }
+
+    public static Comparator<ToDo> getComparator(String methodName) {
+        return switch (methodName) {
+            case "name" -> Comparator.comparing(ToDo::getTitle);
+            case "date" -> Comparator.comparing(ToDo::getStartDate);
+            case "priority" -> Comparator.comparing(ToDo::getPriority);
+            case "category" -> Comparator.comparing(ToDo::getCategory);
+            default -> throw new IllegalArgumentException("Invalid sorting method: " + methodName);
+        };
     }
 
 }
