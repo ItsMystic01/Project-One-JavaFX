@@ -1,6 +1,5 @@
 package mystical.corps.mist.ToDo;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,7 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ToDoMethods {
+public abstract class ToDoMethods {
+
+    public abstract void loadController(ToDo item, Event event) throws IOException;
 
     public static void loadImage(Button... buttons) {
         for(Button button : buttons) {
@@ -25,8 +26,8 @@ public class ToDoMethods {
         }
     }
 
-    public static void returnToMainPage(Class<?> controller, Event event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(controller.getResource("main.fxml"));
+    public static void changeScene(Class<?> controller, Event event, String fileName) throws IOException {
+        FXMLLoader loader = new FXMLLoader(controller.getResource(fileName));
         Parent root = loader.load();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

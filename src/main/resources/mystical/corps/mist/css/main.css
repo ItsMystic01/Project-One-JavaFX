@@ -1,11 +1,28 @@
-.screen {
-    -fx-background-color: #F5F5F7;
+#main {
+    -fx-background-color: "#D8D9DA";
 }
 
-.sidebar {
-    -fx-background-color: #5C5C62;
+#sidebar {
+    -fx-background-color: "#272829";
 }
 
-.scrollpane {
+#scrollpane {
     -fx-padding: 5;
+    -fx-background-color: "#D8D9DA";
+}
+
+#tile-pane {
+    -fx-background-color: "#D8D9DA";
+}
+
+#logo {
+    -fx-text-fill: "#FFF6E0";
+}
+
+#todo {
+    -fx-text-fill: "#FFF6E0";
+}
+
+#your-list {
+    -fx-text-fill: "#61677A";
 }

@@ -45,6 +45,7 @@ public class AddItemController implements Initializable {
         loadImage(returnToMain);
     }
 
+    @FXML
     public void addItem() throws SQLException {
         ToDoManager toDoManager = new ToDoManager();
         String priorityValue = priority.getValue();
@@ -78,9 +79,11 @@ public class AddItemController implements Initializable {
         clearTexts();
     }
 
-    public void resetAll() {
-        clearTexts();
-    }
+    @FXML
+    public void resetAll() { clearTexts(); }
+
+    @FXML
+    public void returnToMain(ActionEvent event) throws IOException { changeScene(this.getClass(), event, "main.fxml"); }
 
     public boolean checkInputs(String... strings) {
         boolean finalOutcome = false;
@@ -99,9 +102,5 @@ public class AddItemController implements Initializable {
         category.setValue("Category");
         startingDate.setValue(LocalDate.now());
         endingDate.setValue(LocalDate.now());
-    }
-
-    public void returnToMain(ActionEvent event) throws IOException {
-        returnToMainPage(this.getClass(), event);
     }
 }

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="main" prefHeight="720.0" prefWidth="960.0" stylesheets="@css/add_item.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.corps.mist.MainController">
+<AnchorPane id="main" prefHeight="720.0" prefWidth="960.0" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.corps.mist.MainController">
    <AnchorPane id="sidebar" prefHeight="720.0" prefWidth="122.0">
       <Label id="logo" alignment="CENTER" layoutX="2.0" layoutY="14.0" prefHeight="71.0" prefWidth="134.0" text="mist.">
          <font>
@@ -34,7 +34,7 @@
       <Separator layoutX="2.0" layoutY="90.0" prefHeight="6.0" prefWidth="134.0" />
    </AnchorPane>
    <AnchorPane layoutX="155.0" layoutY="14.0" prefHeight="89.0" prefWidth="783.0">
-      <Label id="add_item" alignment="CENTER" prefHeight="80.0" prefWidth="214.0" text="Your List">
+      <Label id="your-list" alignment="CENTER" prefHeight="80.0" prefWidth="214.0" text="Your List">
          <font>
             <Font name="Rockwell" size="39.0" />
          </font>
@@ -61,7 +61,7 @@
    </AnchorPane>
    <AnchorPane layoutX="170.0" layoutY="202.0" prefHeight="475.0" prefWidth="766.0">
       <ScrollPane id="scrollpane" fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="475.0" prefWidth="766.0" styleClass="scrollpane" stylesheets="@css/main.css">
-         <TilePane fx:id="tilePane" prefHeight="475.0" prefWidth="764.0" />
+         <TilePane id="tile-pane" fx:id="tilePane" prefHeight="475.0" prefWidth="764.0" styleClass="tile-pane" stylesheets="@css/main.css" />
       </ScrollPane>
       <ListView fx:id="todolist" prefHeight="475.0" prefWidth="766.0" visible="false" />
    </AnchorPane>

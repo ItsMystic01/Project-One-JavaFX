@@ -54,12 +54,10 @@
    <Button layoutX="216.0" layoutY="607.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="51.0" prefWidth="136.0" text="Reset All" />
    <Button layoutX="742.0" layoutY="607.0" mnemonicParsing="false" onAction="#addItem" prefHeight="51.0" prefWidth="136.0" text="Add" />
    <ScrollPane layoutX="340.0" layoutY="393.0" prefHeight="174.0" prefWidth="414.0">
-      <content>
-         <TextArea fx:id="description" prefHeight="172.0" prefWidth="411.0" promptText="Description" wrapText="true">
-            <font>
-               <Font name="Calisto MT" size="30.0" />
-            </font>
-         </TextArea>
-      </content>
+      <TextArea fx:id="description" prefHeight="172.0" prefWidth="411.0" promptText="Description" wrapText="true">
+         <font>
+            <Font name="Calisto MT" size="30.0"/>
+         </font>
+      </TextArea>
    </ScrollPane>
 </AnchorPane>

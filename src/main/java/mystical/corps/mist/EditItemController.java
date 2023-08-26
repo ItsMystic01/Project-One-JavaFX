@@ -13,8 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static mystical.corps.mist.ToDo.ToDoMethods.loadImage;
-import static mystical.corps.mist.ToDo.ToDoMethods.returnToMainPage;
+import static mystical.corps.mist.ToDo.ToDoMethods.*;
 
 public class EditItemController {
 
@@ -40,6 +39,7 @@ public class EditItemController {
         loadImage(returnToMain);
     }
 
+    @FXML
     public void editItem(ActionEvent event) throws SQLException, IOException {
         ToDoManager toDoManager = new ToDoManager();
         String priorityValue = priority.getValue();
@@ -69,19 +69,25 @@ public class EditItemController {
             return;
         }
 
-        toDoManager.editItem(toDo.getTitle(), titleText, descriptionText, priorityValue, categoryValue, startingFormattedDate, endingFormattedDate);
-        returnToMainPage(this.getClass(), event);
+        toDoManager.editItem(toDo.title(), titleText, descriptionText, priorityValue, categoryValue, startingFormattedDate, endingFormattedDate);
+        changeScene(this.getClass(), event, "main.fxml");
     }
 
+    @FXML
     public void resetAll() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
 
-        titleBox.setText(toDo.getTitle());
-        description.setText(toDo.getDescription());
-        startingDate.setValue(LocalDate.parse(toDo.getStartDate(), formatter));
-        endingDate.setValue(LocalDate.parse(toDo.getEndDate(), formatter));
-        priority.setValue(toDo.getPriority());
-        category.setValue(toDo.getCategory());
+        titleBox.setText(toDo.title());
+        description.setText(toDo.description());
+        startingDate.setValue(LocalDate.parse(toDo.startDate(), formatter));
+        endingDate.setValue(LocalDate.parse(toDo.endDate(), formatter));
+        priority.setValue(toDo.priority());
+        category.setValue(toDo.category());
+    }
+
+    @FXML
+    public void returnToMain(ActionEvent event) throws IOException {
+        changeScene(this.getClass(), event, "main.fxml");
     }
 
     public boolean checkInputs(String... strings) {
@@ -92,9 +98,5 @@ public class EditItemController {
         }
 
         return finalOutcome;
-    }
-
-    public void returnToMain(ActionEvent event) throws IOException {
-        returnToMainPage(this.getClass(), event);
     }
 }
