@@ -5,61 +5,61 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane id="main" prefHeight="720.0" prefWidth="960.0" stylesheets="@css/add_item.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.corps.mist.AddItemController">
-   <children>
-      <AnchorPane id="sidebar" prefHeight="720.0" prefWidth="122.0">
-         <children>
-            <Label id="logo" alignment="CENTER" layoutX="2.0" layoutY="14.0" prefHeight="71.0" prefWidth="134.0" text="mist.">
-               <font>
-                  <Font name="Rockwell" size="39.0" />
-               </font></Label>
-            <Label id="todo" alignment="CENTER" layoutX="26.0" layoutY="133.0" prefHeight="89.0" prefWidth="85.0" text="T">
-               <font>
-                  <Font name="Cooper Black" size="70.0" />
-               </font>
-            </Label>
-            <Label id="todo" alignment="CENTER" layoutX="26.0" layoutY="253.0" prefHeight="89.0" prefWidth="85.0" text="O">
-               <font>
-                  <Font name="Cooper Black" size="70.0" />
-               </font>
-            </Label>
-            <Label id="todo" alignment="CENTER" layoutX="26.0" layoutY="396.0" prefHeight="89.0" prefWidth="85.0" text="D">
-               <font>
-                  <Font name="Cooper Black" size="70.0" />
-               </font>
-            </Label>
-            <Label id="todo" alignment="CENTER" layoutX="26.0" layoutY="518.0" prefHeight="89.0" prefWidth="85.0" text="O">
-               <font>
-                  <Font name="Cooper Black" size="70.0" />
-               </font>
-            </Label>
-            <Separator layoutX="2.0" layoutY="90.0" prefHeight="6.0" prefWidth="134.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="155.0" layoutY="14.0" prefHeight="89.0" prefWidth="783.0">
-         <children>
-            <Label id="add_item" alignment="CENTER" prefHeight="80.0" prefWidth="214.0" text="Add Item">
-               <font>
-                  <Font name="Rockwell" size="39.0" />
-               </font>
-            </Label>
-            <Button fx:id="returnToMain" layoutX="704.0" layoutY="12.0" mnemonicParsing="false" onAction="#returnToMain" prefHeight="56.0" prefWidth="65.0" />
-            <Separator layoutX="14.0" layoutY="75.0" prefHeight="6.0" prefWidth="766.0" />
-         </children>
-      </AnchorPane>
-      <TextField fx:id="titleBox" layoutX="340.0" layoutY="149.0" prefHeight="59.0" prefWidth="414.0" promptText="Title">
+   <AnchorPane id="sidebar" prefHeight="720.0" prefWidth="122.0">
+      <Label id="logo" alignment="CENTER" layoutX="2.0" layoutY="14.0" prefHeight="71.0" prefWidth="134.0" text="mist.">
          <font>
-            <Font name="Calisto MT" size="30.0" />
-         </font></TextField>
-      <DatePicker fx:id="startingDate" layoutX="216.0" layoutY="237.0" prefHeight="51.0" prefWidth="248.0" promptText="Starting Date" />
-      <DatePicker fx:id="endingDate" layoutX="630.0" layoutY="237.0" prefHeight="51.0" prefWidth="248.0" promptText="Ending Date" />
-      <ChoiceBox fx:id="category" layoutX="216.0" layoutY="309.0" prefHeight="51.0" prefWidth="248.0" />
-      <TextField fx:id="description" layoutX="340.0" layoutY="393.0" prefHeight="174.0" prefWidth="414.0" promptText="Description">
-         <font>
-            <Font name="Calisto MT" size="30.0" />
+            <Font name="Rockwell" size="39.0" />
          </font>
-      </TextField>
-      <ChoiceBox fx:id="priority" layoutX="630.0" layoutY="309.0" prefHeight="51.0" prefWidth="248.0" />
-      <Button fx:id="resetAll" layoutX="216.0" layoutY="607.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="51.0" prefWidth="136.0" text="Reset All" />
-      <Button fx:id="addItem" layoutX="742.0" layoutY="607.0" mnemonicParsing="false" onAction="#addItem" prefHeight="51.0" prefWidth="136.0" text="Add" />
-   </children>
+      </Label>
+      <Label id="todo" alignment="CENTER" layoutX="26.0" layoutY="133.0" prefHeight="89.0" prefWidth="85.0" text="T">
+         <font>
+            <Font name="Cooper Black" size="70.0" />
+         </font>
+      </Label>
+      <Label id="todo" alignment="CENTER" layoutX="26.0" layoutY="253.0" prefHeight="89.0" prefWidth="85.0" text="O">
+         <font>
+            <Font name="Cooper Black" size="70.0" />
+         </font>
+      </Label>
+      <Label id="todo" alignment="CENTER" layoutX="26.0" layoutY="396.0" prefHeight="89.0" prefWidth="85.0" text="D">
+         <font>
+            <Font name="Cooper Black" size="70.0" />
+         </font>
+      </Label>
+      <Label id="todo" alignment="CENTER" layoutX="26.0" layoutY="518.0" prefHeight="89.0" prefWidth="85.0" text="O">
+         <font>
+            <Font name="Cooper Black" size="70.0" />
+         </font>
+      </Label>
+      <Separator layoutX="2.0" layoutY="90.0" prefHeight="6.0" prefWidth="134.0" />
+   </AnchorPane>
+   <AnchorPane layoutX="155.0" layoutY="14.0" prefHeight="89.0" prefWidth="783.0">
+      <Label id="add_item" alignment="CENTER" prefHeight="80.0" prefWidth="214.0" text="Add Item">
+         <font>
+            <Font name="Rockwell" size="39.0" />
+         </font>
+      </Label>
+      <Button fx:id="returnToMain" layoutX="704.0" layoutY="12.0" mnemonicParsing="false" onAction="#returnToMain" prefHeight="56.0" prefWidth="65.0" />
+      <Separator layoutX="14.0" layoutY="75.0" prefHeight="6.0" prefWidth="766.0" />
+   </AnchorPane>
+   <TextField fx:id="titleBox" layoutX="340.0" layoutY="149.0" prefHeight="59.0" prefWidth="414.0" promptText="Title">
+      <font>
+         <Font name="Calisto MT" size="30.0" />
+      </font>
+   </TextField>
+   <DatePicker fx:id="startingDate" layoutX="216.0" layoutY="237.0" prefHeight="51.0" prefWidth="248.0" promptText="Starting Date" />
+   <DatePicker fx:id="endingDate" layoutX="630.0" layoutY="237.0" prefHeight="51.0" prefWidth="248.0" promptText="Ending Date" />
+   <ChoiceBox fx:id="category" layoutX="216.0" layoutY="309.0" prefHeight="51.0" prefWidth="248.0" />
+   <ChoiceBox fx:id="priority" layoutX="630.0" layoutY="309.0" prefHeight="51.0" prefWidth="248.0" />
+   <Button layoutX="216.0" layoutY="607.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="51.0" prefWidth="136.0" text="Reset All" />
+   <Button layoutX="742.0" layoutY="607.0" mnemonicParsing="false" onAction="#addItem" prefHeight="51.0" prefWidth="136.0" text="Add" />
+   <ScrollPane layoutX="340.0" layoutY="393.0" prefHeight="174.0" prefWidth="414.0">
+      <content>
+         <TextArea fx:id="description" prefHeight="172.0" prefWidth="411.0" promptText="Description" wrapText="true">
+            <font>
+               <Font name="Calisto MT" size="30.0" />
+            </font>
+         </TextArea>
+      </content>
+   </ScrollPane>
 </AnchorPane>

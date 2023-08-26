@@ -8,8 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
@@ -17,10 +15,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mystical.corps.mist.ToDo.ToDo;
 import mystical.corps.mist.ToDo.ToDoManager;
+import mystical.corps.mist.ToDo.ToDoMethods;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class MainController {
 
@@ -43,7 +44,7 @@ public class MainController {
 
     public void initialize() throws SQLException {
 
-        loadImage(view_mode, filter, plus, gear);
+        ToDoMethods.loadImage(view_mode, filter, plus, gear);
 
         if(TODO_MANAGER.isDBClosed()) { return; }
 
@@ -102,7 +103,7 @@ public class MainController {
                 card = loader.load();
 
                 CardTemplate cardTemplate = loader.getController();
-                cardTemplate.initialize(item);
+                cardTemplate.initialize(item, TODO_MANAGER);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -156,22 +157,12 @@ public class MainController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("view_item.fxml"));
         Parent root = loader.load();
 
-        ViewItem viewItem = loader.getController();
+        ViewItemController viewItem = loader.getController();
         viewItem.loadDataFromMain(toDo);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
-    }
-
-    public void loadImage(Button... buttons) {
-        for(Button button : buttons) {
-            Image buttonImg = new Image(button.getId() + ".png");
-            ImageView buttonImgView = new ImageView(buttonImg);
-            buttonImgView.setFitWidth(32);
-            buttonImgView.setFitHeight(32);
-            button.setGraphic(buttonImgView);
-        }
     }
 
     public void addItem(ActionEvent event) throws IOException {
@@ -183,7 +174,7 @@ public class MainController {
         stage.show();
     }
 
-    public void gearItem(ActionEvent event) {
+    public void gearItem() {
     }
 
 }

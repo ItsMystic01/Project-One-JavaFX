@@ -67,4 +67,26 @@ public class SQLiteManager {
         }
     }
 
+    public void deleteItem(String title) throws SQLException {
+        String deleteQuery = "DELETE FROM todo WHERE title = ?";
+
+        PreparedStatement preparedStatement = CONNECTION.prepareStatement(deleteQuery);
+        preparedStatement.setString(1, title);
+        preparedStatement.executeUpdate();
+    }
+
+    public void updateItem(String previousTitle, ToDo newItem) throws SQLException {
+            String updateQuery = "UPDATE todo SET title = ?, todo = ? WHERE title = ?";
+            try (PreparedStatement preparedStatement = CONNECTION.prepareStatement(updateQuery)) {
+                preparedStatement.setString(1, newItem.getTitle());
+                preparedStatement.setString(2, new Gson().toJson(newItem));
+                preparedStatement.setString(3, previousTitle);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected < 0) {
+                    System.out.println("No item found to update.");
+                }
+            }
+    }
+
 }

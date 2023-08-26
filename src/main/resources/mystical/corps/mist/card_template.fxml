@@ -16,7 +16,7 @@
       <Label fx:id="box_category" alignment="CENTER" layoutX="78.0" layoutY="2.0" prefHeight="25.0" prefWidth="73.0" text="Category" />
    </AnchorPane>
    <AnchorPane prefHeight="11.0" prefWidth="155.0">
-      <Button id="button" layoutX="11.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Edit" />
-      <Button id="button" layoutX="91.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Delete" />
+      <Button id="button" fx:id="editButton" layoutX="11.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Edit" />
+      <Button id="button" fx:id="deleteButton" layoutX="91.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Delete" />
    </AnchorPane>
 </VBox>
