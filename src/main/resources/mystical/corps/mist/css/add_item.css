@@ -1,6 +1,6 @@
 
 #main {
-    -fx-background-color: "#D8D9DA";
+    -fx-background-color: "#8E856D";
 }
 
 #sidebar {
@@ -16,7 +16,7 @@
 }
 
 #add_item {
-    -fx-text-fill: "#61677A";
+    -fx-text-fill: "#FFF6E0";
 }
 
 #execute_button {

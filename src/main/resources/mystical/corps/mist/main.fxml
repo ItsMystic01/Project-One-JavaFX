@@ -63,6 +63,6 @@
       <ScrollPane id="scrollpane" fx:id="scrollPane" hbarPolicy="NEVER" layoutX="-4.0" layoutY="-14.0" prefHeight="508.0" prefWidth="794.0" styleClass="scrollpane" stylesheets="@css/main.css">
          <TilePane id="tile-pane" fx:id="tilePane" prefHeight="500.0" prefWidth="785.0" styleClass="tile-pane" stylesheets="@css/main.css" />
       </ScrollPane>
-      <ListView fx:id="todolist" prefHeight="475.0" prefWidth="766.0" visible="false" />
+      <ListView id="list_view" fx:id="todolist" prefHeight="475.0" prefWidth="766.0" visible="false" />
    </AnchorPane>
 </AnchorPane>

@@ -4,8 +4,8 @@
 
 * {
     -fx-label-color: #444444;
+    -button-text-fill: #FFFFFF;
 }
-
 
 #main_box {
     -fx-background-color: "#D1C7BC";
@@ -18,12 +18,12 @@
 
 #delete-button {
     -fx-background-color: "#FE696E";
-    -fx-text-fill: "#FFFFFF";
+    -fx-text-fill: -button-text-fill;
 }
 
 #edit-button {
     -fx-background-color: "#0B6380";
-    -fx-text-fill: "#FFFFFF";
+    -fx-text-fill: -button-text-fill;
 }
 
 #title {
