@@ -118,8 +118,10 @@ public class MainController extends ToDoMethods {
             tilePane.getChildren().add(card);
 
             card.setOnMouseClicked(mouseEvent -> {
-                try { loadController(item, mouseEvent); }
-                catch (IOException e) { throw new RuntimeException(e); }
+                if(mouseEvent.getClickCount() == 2) {
+                    try { loadController(item, mouseEvent); }
+                    catch (IOException e) { throw new RuntimeException(e); }
+                }
             });
         }
     }

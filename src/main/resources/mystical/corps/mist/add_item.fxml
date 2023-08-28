@@ -51,12 +51,12 @@
    <DatePicker fx:id="endingDate" layoutX="630.0" layoutY="237.0" prefHeight="51.0" prefWidth="248.0" promptText="Ending Date" />
    <ChoiceBox fx:id="category" layoutX="216.0" layoutY="309.0" prefHeight="51.0" prefWidth="248.0" />
    <ChoiceBox fx:id="priority" layoutX="630.0" layoutY="309.0" prefHeight="51.0" prefWidth="248.0" />
-   <Button layoutX="216.0" layoutY="607.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="51.0" prefWidth="136.0" text="Reset All" />
-   <Button layoutX="742.0" layoutY="607.0" mnemonicParsing="false" onAction="#addItem" prefHeight="51.0" prefWidth="136.0" text="Add" />
+   <Button id="reset_all" layoutX="216.0" layoutY="607.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="51.0" prefWidth="136.0" text="Reset All" />
+   <Button id="execute_button" layoutX="742.0" layoutY="607.0" mnemonicParsing="false" onAction="#addItem" prefHeight="51.0" prefWidth="136.0" text="Add" />
    <ScrollPane layoutX="340.0" layoutY="393.0" prefHeight="174.0" prefWidth="414.0">
       <TextArea fx:id="description" prefHeight="172.0" prefWidth="411.0" promptText="Description" wrapText="true">
          <font>
-            <Font name="Calisto MT" size="30.0"/>
+            <Font name="Calisto MT" size="30.0" />
          </font>
       </TextArea>
    </ScrollPane>

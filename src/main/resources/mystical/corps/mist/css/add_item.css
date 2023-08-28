@@ -4,7 +4,7 @@
 }
 
 #sidebar {
-    -fx-background-color: "#272829";
+    -fx-background-color: "#444444";
 }
 
 #logo {
@@ -17,4 +17,14 @@
 
 #add_item {
     -fx-text-fill: "#61677A";
+}
+
+#execute_button {
+    -fx-background-color: "#0B6380";
+    -fx-text-fill: "#FFFFFF";
+}
+
+#reset_all {
+    -fx-background-color: "#FE696E";
+    -fx-text-fill: "#FFFFFF";
 }

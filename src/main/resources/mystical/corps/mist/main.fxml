@@ -60,8 +60,8 @@
       <Button fx:id="view_mode" layoutX="497.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeViewMode" prefHeight="51.0" prefWidth="53.0" />
    </AnchorPane>
    <AnchorPane layoutX="170.0" layoutY="202.0" prefHeight="475.0" prefWidth="766.0">
-      <ScrollPane id="scrollpane" fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="475.0" prefWidth="766.0" styleClass="scrollpane" stylesheets="@css/main.css">
-         <TilePane id="tile-pane" fx:id="tilePane" prefHeight="475.0" prefWidth="764.0" styleClass="tile-pane" stylesheets="@css/main.css" />
+      <ScrollPane id="scrollpane" fx:id="scrollPane" hbarPolicy="NEVER" layoutX="-4.0" layoutY="-14.0" prefHeight="508.0" prefWidth="794.0" styleClass="scrollpane" stylesheets="@css/main.css">
+         <TilePane id="tile-pane" fx:id="tilePane" prefHeight="500.0" prefWidth="785.0" styleClass="tile-pane" stylesheets="@css/main.css" />
       </ScrollPane>
       <ListView fx:id="todolist" prefHeight="475.0" prefWidth="766.0" visible="false" />
    </AnchorPane>

@@ -1,5 +1,15 @@
+@font-face {
+    src: url("../../../../FiraCode.ttf");
+}
+
+* {
+    -fx-label-color: #444444;
+}
+
+
 #main_box {
-    -fx-background-color: #0000;
+    -fx-background-color: "#D1C7BC";
+    -fx-background-radius: 13px;
     -fx-padding: 10px;
     -fx-border-width: 1px;
     -fx-border-color: gray;
@@ -7,11 +17,40 @@
 }
 
 #delete-button {
-    -fx-background-color: "#BB2525";
+    -fx-background-color: "#FE696E";
     -fx-text-fill: "#FFFFFF";
 }
 
 #edit-button {
-    -fx-background-color: "#141E46";
+    -fx-background-color: "#0B6380";
     -fx-text-fill: "#FFFFFF";
+}
+
+#title {
+    -fx-text-fill: -fx-label-color;
+    -fx-font-family: "Fira Code";
+}
+
+#starting_date {
+    -fx-text-fill: -fx-label-color;
+    -fx-background-color: "#E1989850";
+    -fx-background-radius: 5px;
+}
+
+#ending_date {
+    -fx-text-fill: -fx-label-color;
+    -fx-background-color: "#E1989850";
+    -fx-background-radius: 5px;
+}
+
+#priority {
+    -fx-text-fill: -fx-label-color;
+    -fx-background-color: "#4D3C7750";
+    -fx-background-radius: 5px;
+}
+
+#category {
+    -fx-text-fill: -fx-label-color;
+    -fx-background-color: "#5B9A8B50";
+    -fx-background-radius: 5px;
 }

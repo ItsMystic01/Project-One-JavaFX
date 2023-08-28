@@ -1,18 +1,18 @@
 #main {
-    -fx-background-color: "#D8D9DA";
+    -fx-background-color: "#8E856D";
 }
 
 #sidebar {
-    -fx-background-color: "#272829";
+    -fx-background-color: "#444444";
 }
 
 #scrollpane {
     -fx-padding: 5;
-    -fx-background-color: "#D8D9DA";
+    -fx-background-color: "#8E856D";
 }
 
 #tile-pane {
-    -fx-background-color: "#D8D9DA";
+    -fx-background-color: "#8E856D";
 }
 
 #logo {
@@ -24,5 +24,5 @@
 }
 
 #your-list {
-    -fx-text-fill: "#61677A";
+    -fx-text-fill: "#FFF6E0";
 }
