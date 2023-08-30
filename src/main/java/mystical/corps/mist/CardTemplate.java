@@ -20,7 +20,7 @@ import java.sql.SQLException;
 public class CardTemplate extends ToDoMethods {
 
     @FXML
-    public VBox main_box;
+    public VBox mainBox;
     @FXML
     public Label box_title, box_starting_date, box_ending_date, box_priority, box_category;
     @FXML
